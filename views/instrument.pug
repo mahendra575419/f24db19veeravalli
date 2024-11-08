@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  h1 Mahendra kumar Veeravalli
+
+ 
+  - 
+    var results = [
+      { instrument_name: 'Guitar', type: 'String', year_made: 1995 },
+      { instrument_name: 'Trumpet', type: 'Brass', year_made: 1980 },
+      { instrument_name: 'Piano', type: 'Percussion', year_made: 2000 }
+    ];
+ 
+  .container-fluid
+    .row
+      each instrument, index  in results
+        .col-sm-2
+          h3 #{instrument.instrument_name}
+          p Type: #{instrument.type}
+          p Year Made: #{instrument.year_made}
+
+           // Button that calls buy() function with the index of the instrument
+          button(type="button", class="btn btn-outline-success", onclick=`buy(${index +1})`) Purchase
+ 
+  // Script to define the buy() function
+  script.
+    function buy(index) {
+      alert(`You purchased item ${index}`);
+    }
