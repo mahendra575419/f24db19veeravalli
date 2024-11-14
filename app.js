@@ -12,6 +12,21 @@ var pickRouter = require('./routes/pick');
 
 var app = express();
 
+var instrument = require("./models/instrument");MONGO_CON= 'your connection string'
+
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -32,6 +47,33 @@ app.use('/pick', pickRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// We can seed the collection if needed on server start
+async function recreateDB(){
+// Delete everything
+await instrument.deleteMany();
+let instance1 = new instrument({instrument_name: 'Guitar', type: 'String', year_made: 1995 });
+let instance2 = new instrument({instrument_name: 'Trumpet', type: 'Brass', year_made: 1980 });
+let instance3 = new instrument({instrument_name: 'Piano', type: 'Percussion', year_made: 2000});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+).catch(err=>{
+console.error(err)
+});
+instance1.save().then(doc=>{
+  console.log("second object saved")}
+  ).catch(err=>{
+  console.error(err)
+  });
+  instance1.save().then(doc=>{
+    console.log("third object saved")}
+    ).catch(err=>{
+    console.error(err)
+    });
+}
+let reseed = true;
+if (reseed) {recreateDB();}
+
 
 // error handler
 app.use(function(err, req, res, next) {
