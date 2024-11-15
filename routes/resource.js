@@ -17,4 +17,7 @@ router.put('/instruments/:id', instrument_controller.instrument_update_put);
 router.get('/instruments/:id', instrument_controller.instrument_detail);
 // GET request for list of all instrument items.
 router.get('/instruments', instrument_controller.instrument_list);
+// GET request for one instrument.
+router.get('/instrument/:id', instrument_controller.instrument_detail);
 module.exports = router;
+
