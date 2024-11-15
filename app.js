@@ -9,10 +9,10 @@ var usersRouter = require('./routes/users');
 var instrumentRouter = require('./routes/instrument');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
-
+var resourceRouter=require('./routes/resource');
 var app = express();
 
-var instrument = require("./models/instrument");MONGO_CON= 'your connection string'
+var instrument = require("./models/instrument");
 
 require('dotenv').config();
 const connectionString = process.env.MONGO_CON
@@ -25,7 +25,7 @@ var db = mongoose.connection;
 //Bind connection to error event
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", function(){
-console.log("Connection to DB succeeded")});
+  console.log("Connection to DB succeeded")});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +42,7 @@ app.use('/users', usersRouter);
 app.use('/instrument', instrumentRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -60,12 +61,12 @@ console.log("First object saved")}
 ).catch(err=>{
 console.error(err)
 });
-instance1.save().then(doc=>{
+instance2.save().then(doc=>{
   console.log("second object saved")}
   ).catch(err=>{
   console.error(err)
   });
-  instance1.save().then(doc=>{
+  instance3.save().then(doc=>{
     console.log("third object saved")}
     ).catch(err=>{
     console.error(err)
@@ -73,6 +74,8 @@ instance1.save().then(doc=>{
 }
 let reseed = true;
 if (reseed) {recreateDB();}
+
+
 
 
 // error handler
@@ -85,5 +88,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

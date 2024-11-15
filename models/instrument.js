@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const costumeSchema = mongoose.Schema({
+const instrumentSchema = mongoose.Schema({
  instrument_name: String,
  type: String,
  year_made: Number
