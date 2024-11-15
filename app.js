@@ -42,6 +42,7 @@ app.use('/users', usersRouter);
 app.use('/instrument', instrumentRouter);
 app.use('/grid', gridRouter);
 app.use('/pick', pickRouter);
+app.use('/resource',resourceRouter);
 
 
 // catch 404 and forward to error handler
