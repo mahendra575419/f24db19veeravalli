@@ -1,0 +1,54 @@
+extends layout
+ 
+block content
+  h1= title
+  - let instrument_id = toShow._id
+  - let instrument_name = toShow.instrument_name
+  - let instrument_type = toShow.instrument_type
+  - let instrument_yr = toShow.instrument_yr
+
+    - let actionid = "/resource/instruments/" + instrumentid
+    script.
+      let actionid = "#{actionid}"
+     div
+    div.row
+      div(class='instrumentAttr mr-3') Instrument ID is:
+      div #{instrument_id}
+    div.row
+      div(class='instrumentAttr mr-3') Instrument name  is:
+      div #{instrument_name}
+    div.row
+      div(class='instrumentAttr mr-3') Instrument type  is:
+      div #{instrument_type}
+    div.row
+      div(class='instrumentAttr mr-3') Instrument year  is:
+      div #{instrument_yr}
+      button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+ 
+  script.
+    function cancel() {
+      // Go back to the home page for the instrument collection
+      window.location.href = '/instrument';
+    }
+ 
+  script.
+    function deleteOnid() {
+      console.log("starting delete");
+      // Delete request
+      fetch(actionid, {
+        method: 'DELETE' // No body needed for delete
+      })
+      .then((resp) => {
+        return resp.text(); // or resp.text() or whatever the server sends
+      })
+      .then((body) => {
+        alert("Delete succeeded");
+        window.location.href = '/instrument';
+        // TODO handle body
+      })
+      .catch((error) => {
+        // TODO handle error
+        alert("Delete failed: " + error);
+      });
+    }

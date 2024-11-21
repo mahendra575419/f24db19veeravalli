@@ -73,8 +73,8 @@ instance2.save().then(doc=>{
     console.error(err)
     });
 }
-let reseed = true;
-if (reseed) {recreateDB();}
+let reseed = false;
+if (!reseed) {recreateDB();}
 
 
 

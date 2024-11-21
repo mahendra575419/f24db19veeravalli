@@ -1,0 +1,78 @@
+//- extends layout
+
+//- block content
+//-   h1= title
+//-   form(id='instrumentForm', action="/resource/instrument", method="POST")
+//-     div.form-group
+//-       label.instrumentAttr(for='instrument_name') Instrument Name
+//-       input#instrument_name(type='text', name='instrument_name')
+//-     div.form-group
+//-       label.instrumentAttr(for='type') Instrument Type
+//-       input#type(type='text', name='type')
+//-     div.form-group
+//-       label.instrumentAttr(for='year_made') Instrument Year
+//-       input#year_made(type='number', name='year_made')
+//-     input(type="submit")
+
+//-   script.
+//-     document.forms['instrumentForm'].addEventListener('submit', (event) => {
+//-       event.preventDefault();
+//-       // TODO do something here to show user that form is being submitted
+//-       fetch(event.target.action, {
+//-         method: 'POST',
+//-         body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+//-       }).then((resp) => {
+//-         return resp.json(); // or resp.text() or whatever the server sends
+//-       }).then((body) => {
+//-         alert("Save succeeded");
+//-         // TODO handle body
+//-       }).catch((error) => {
+//-         // TODO handle error
+//-         alert("Save failed " + error);
+//-       });
+//-     });
+
+
+extends layout
+block content
+  h1= title
+  form(id='instrumentForm', action="/resource/instruments", method="POST")
+    div.form-group
+      label.instrumentAttr(for='instrument_name') Instrument Name
+      input#instrument_name(type='text', name='instrument_name')
+    div.form-group
+      label.instrumentAttr(for='instrument_type') Instrument Type
+      input#type(type='text', name='instrument_type')
+    div.form-group
+      label.instrumentAttr(for='instrument_yr') Instrument Year
+      input#year_made(type='number', name='instrument_yr')
+    input(type="submit")
+ 
+  script.
+    document.forms['instrumentForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO: Do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      })
+      .then((resp) => {
+        console.log(resp)
+        //- return resp.json(); // or resp.text() or whatever the server sends
+        try {
+            let text  = resp.text ()
+            return text 
+        } catch (error) {
+            return new Promise((resolve, reject) => reject(resp.text()))
+        }
+      })
+      .then((body) => {
+        alert("Save succeeded");
+        // TODO: Handle body
+      })
+      .catch((error) => {
+        // TODO: Handle error
+        alert("Save failed: " + error);
+      });
+    });
+    

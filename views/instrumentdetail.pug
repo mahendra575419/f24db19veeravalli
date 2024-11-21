@@ -1,0 +1,51 @@
+extends layout
+
+block content
+  h1= title
+  - let instrument_id = toShow._id
+  - let instrument_name = toShow.instrument_name
+  - let instrument_type = toShow.instrument_type
+  - let instrument_yr = toShow.instrument_yr
+
+  div
+    div.row.mb-2
+      div(class='instrumentAttr mr-3') Instrument ID:
+      div.text-info #{instrument_id}
+    div.row.mb-2
+      div(class='instrumentAttr mr-3') Instrument Name:
+      div.text-info #{instrument_name}
+    div.row.mb-2
+      div(class='instrumentAttr mr-3') Instrument Type:
+      div.text-info #{instrument_type}
+    div.row.mb-2
+      div(class='instrumentAttr mr-3') Instrument Year:
+      div.text-info #{instrument_yr}
+
+  style.
+    .instrumentAttr {
+      font-weight: bold;
+      color: #555;
+    }
+    .text-info {
+      font-size: 1.1rem;
+      color: #007bff;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .mb-2 {
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Arial', sans-serif;
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+    }

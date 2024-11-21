@@ -7,9 +7,9 @@ block content
  
   - 
     var results = [
-      { instrument_name: 'Guitar', type: 'String', year_made: 1995 },
-      { instrument_name: 'Trumpet', type: 'Brass', year_made: 1980 },
-      {instrument_name: 'Piano', type: 'Percussion', year_made: 2000 } 
+      { instrument_name: 'Guitar',instrument_type: 'String', instrument_yr: 1995 },
+      { instrument_name: 'Trumpet', instrument_type: 'Brass', instrument_yr: 1980 },
+      {instrument_name: 'Piano', instrument_type: 'Percussion', instrument_yr: 2000 } 
     ];
  
   .container-fluid
@@ -18,8 +18,8 @@ block content
       each instrument, index  in results
         .col-sm-2
           h3 #{instrument.instrument_name}
-          p Type: #{instrument.type}
-          p Year Made: #{instrument.year_made}
+          p Type: #{instrument.instrument_type}
+          p Year Made: #{instrument.instrument_yr}
 
            // Button that calls buy() function with the index of the instrument
           button(type="button", class="btn btn-outline-success", onclick=`buy(${index +1})`) Purchase

@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1= title
+
+  - let instrument_id = toShow._id
+  - let instrument_name = toShow.instrument_name
+  - let instrument_type = toShow.instrument_type
+  - let instrument_yr = toShow.instrument_yr
+
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{instrumentid}
+
+  - let actionid = "/resource/instruments/" + instrumentid
+  form(id='instrumentForm', action="/resource/instruments", method="POST")
+    div.form-group
+      label.instrumentAttr(for='instrument_name') Instrument Name
+      input#instrument_name(type='text', name='instrument_name')
+    div.form-group
+      label.instrumentAttr(for='instrument_type') Instrument Type
+      input#type(type='text', name='instrument_type')
+    div.form-group
+      label.instrumentAttr(for='instrument_yr') Instrument Year
+      input#year_made(type='number', name='instrument_yr')
+    input(type="submit")
+
+ 
+  script.
+    document.forms['instrumentForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO: show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.text(); // or resp.json() depending on server response
+      }).then((body) => {
+        alert("Update succeeded");
+        // TODO: handle body
+      }).catch((error) => {
+        alert("Update failed: " + error);
+      });
+    });
