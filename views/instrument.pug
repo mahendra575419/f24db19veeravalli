@@ -1,33 +1,66 @@
+//- extends layout
+
+//- block content
+//-   h1= title
+//-   h1 Mahendra kumar Veeravalli
+
+ 
+//-   - 
+//-     var results = [
+//-       { instrument_name: 'Guitar',instrument_type: 'String', instrument_yr: 1995 },
+//-       { instrument_name: 'Trumpet', instrument_type: 'Brass', instrument_yr: 1980 },
+//-       {instrument_name: 'Piano', instrument_type: 'Percussion', instrument_yr: 2000 } 
+//-     ];
+ 
+//-   .container-fluid
+
+//-     .row
+//-       each instrument, index  in results
+//-         .col-sm-2
+//-           h3 #{instrument.instrument_name}
+//-           p Type: #{instrument.instrument_type}
+//-           p Year Made: #{instrument.instrument_yr}
+
+//-            // Button that calls buy() function with the index of the instrument
+//-           button(type="button", class="btn btn-outline-success", onclick=`buy(${index +1})`) Purchase
+ 
+//-   // Script to define the buy() function
+//-   script.
+//-     function buy(index) {
+//-       alert(`You purchased item ${index}`);
+//-     }
+//-     var express = require('express');
+    
+
+
+//- extends layout
+//- block content
+//- h1= title
+//- - let items = results;
+//- div(class="container-fluid")
+//- div(class="row")
+//- each item in items
+//- div(class="row-sm-2", class="m-1") Item #{item.instrument_name}(#{item.instrument_type}) is #{item.instrument_yr}
+
 extends layout
-
+ 
 block content
-  h1= title
-  h1 Mahendra kumar Veeravalli
-
- 
-  - 
-    var results = [
-      { instrument_name: 'Guitar',instrument_type: 'String', instrument_yr: 1995 },
-      { instrument_name: 'Trumpet', instrument_type: 'Brass', instrument_yr: 1980 },
-      {instrument_name: 'Piano', instrument_type: 'Percussion', instrument_yr: 2000 } 
-    ];
- 
-  .container-fluid
-
-    .row
-      each instrument, index  in results
-        .col-sm-2
-          h3 #{instrument.instrument_name}
-          p Type: #{instrument.instrument_type}
-          p Year Made: #{instrument.instrument_yr}
-
-           // Button that calls buy() function with the index of the instrument
-          button(type="button", class="btn btn-outline-success", onclick=`buy(${index +1})`) Purchase
- 
-  // Script to define the buy() function
-  script.
-    function buy(index) {
-      alert(`You purchased item ${index}`);
-    }
-    var express = require('express');
-
+    h1= title
+    - let items = results;
+   
+    div.container-fluid
+        div.row
+            each item,x in items
+                div.row-sm-2.m-1
+                    p Item #{item.instrument_name} (#{item.instrument_type}) is #{item.instrument_yr}
+                    button.btn.btn-primary.ml-1(onclick=`dispatch('/instrument/update?id=${item._id}')`) Update
+                    //button.btn.btn-primary.ml-1(onclick=`dispatch('/instrument/update?id=${item._id}')`) Update
+                    button(type="button", class="btn btn-outline-success", onclick=`buy(${ x+1})`) Purchase
+   
+    script.
+        function dispatch(path) {
+            window.location.href = path;
+        }
+        function buy(index) {
+            alert(`You purchased item ${index}`);
+        }
