@@ -54,8 +54,11 @@ block content
                 div.row-sm-2.m-1
                     p Item #{item.instrument_name} (#{item.instrument_type}) is #{item.instrument_yr}
                     button.btn.btn-primary.ml-1(onclick=`dispatch('/instrument/update?id=${item._id}')`) Update
+                    button.btn.btn-primary.ml-1(onclick=`dispatch('/instrument/detail?id=${item._id}')`) Details
+                    button.btn.btn-primary.ml-1(onclick=`dispatch('/instrument/delete?id=${item._id}')`) Delete 
                     //button.btn.btn-primary.ml-1(onclick=`dispatch('/instrument/update?id=${item._id}')`) Update
                     button(type="button", class="btn btn-outline-success", onclick=`buy(${ x+1})`) Purchase
+                    
    
     script.
         function dispatch(path) {
